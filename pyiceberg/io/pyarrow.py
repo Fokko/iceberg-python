@@ -716,7 +716,7 @@ class PyArrowSchemaVisitor(Generic[T], ABC):
 
 def _get_field_id(field: pa.Field) -> Optional[int]:
     for pyarrow_field_id_key in PYARROW_FIELD_ID_KEYS:
-        if field_id_str := field.metadata.get(pyarrow_field_id_key):
+        if field.metadata is not None and (field_id_str := field.metadata.get(pyarrow_field_id_key)):
             return int(field_id_str.decode())
     return None
 
