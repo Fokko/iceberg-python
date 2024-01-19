@@ -156,6 +156,9 @@ class Transaction:
         self._table.metadata = fresh_table.metadata
         self._table.metadata_location = fresh_table.metadata_location
 
+    def compact_metadata(self) -> None:
+
+
     def _append_updates(self, *new_updates: TableUpdate) -> Transaction:
         """Append updates to the set of staged updates.
 
@@ -2099,7 +2102,7 @@ class _MergingSnapshotProducer:
     _table: Table
     _snapshot_id: int
     _parent_snapshot_id: Optional[int]
-    _added_data_files: List[DataFile]
+    _to_be_written_entries: List[ManifestEntry]
     _commit_uuid: uuid.UUID
 
     def __init__(self, operation: Operation, table: Table) -> None:
@@ -2108,12 +2111,28 @@ class _MergingSnapshotProducer:
         self._snapshot_id = table.new_snapshot_id()
         # Since we only support the main branch for now
         self._parent_snapshot_id = snapshot.snapshot_id if (snapshot := self._table.current_snapshot()) else None
-        self._added_data_files = []
+        self._to_be_written_entries = []
         self._commit_uuid = uuid.uuid4()
 
     def append_data_file(self, data_file: DataFile) -> _MergingSnapshotProducer:
-        self._added_data_files.append(data_file)
+        self._to_be_written_entries.append(ManifestEntry(
+                                status=ManifestEntryStatus.ADDED,
+                                snapshot_id=self._snapshot_id,
+                                data_sequence_number=None,
+                                file_sequence_number=None,
+                                data_file=data_file,
+                            ))
         return self
+
+    def rewrite_manifests(self) -> None:
+        if snapshot := self._table.current_snapshot():
+            manifests = snapshot.manifests(self._table.io)
+
+            # Check if there are more than one manifest.
+            if len(manifests) > 0:
+
+
+
 
     def _deleted_entries(self) -> List[ManifestEntry]:
         """To determine if we need to record any deleted entries.
@@ -2153,7 +2172,7 @@ class _MergingSnapshotProducer:
 
     def _manifests(self) -> List[ManifestFile]:
         def _write_added_manifest() -> List[ManifestFile]:
-            if self._added_data_files:
+            if self._to_be_written_entries:
                 output_file_location = _new_manifest_path(location=self._table.location(), num=0, commit_uuid=self._commit_uuid)
                 with write_manifest(
                     format_version=self._table.format_version,
@@ -2162,16 +2181,8 @@ class _MergingSnapshotProducer:
                     output_file=self._table.io.new_output(output_file_location),
                     snapshot_id=self._snapshot_id,
                 ) as writer:
-                    for data_file in self._added_data_files:
-                        writer.add_entry(
-                            ManifestEntry(
-                                status=ManifestEntryStatus.ADDED,
-                                snapshot_id=self._snapshot_id,
-                                data_sequence_number=None,
-                                file_sequence_number=None,
-                                data_file=data_file,
-                            )
-                        )
+                    for entry in self._to_be_written_entries:
+                        writer.add_entry(entry)
                 return [writer.to_manifest_file()]
             else:
                 return []
@@ -2226,7 +2237,7 @@ class _MergingSnapshotProducer:
     def _summary(self) -> Summary:
         ssc = SnapshotSummaryCollector()
 
-        for data_file in self._added_data_files:
+        for data_file in self._to_be_written_entries:
             ssc.add_file(data_file=data_file)
 
         previous_snapshot = self._table.snapshot_by_id(self._parent_snapshot_id) if self._parent_snapshot_id is not None else None
