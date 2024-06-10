@@ -1344,17 +1344,17 @@ gcsfuse = ["fusepy"]
 
 [[package]]
 name = "getdaft"
-version = "0.2.23"
+version = "0.2.27"
 description = "Distributed Dataframes for Multimodal Data"
 optional = true
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "getdaft-0.2.23-cp37-abi3-macosx_10_12_x86_64.whl", hash = "sha256:a59f6084ca865528b26ed478d584f98c102500005314dbc7fc44b7c4b3e18d49"},
-    {file = "getdaft-0.2.23-cp37-abi3-macosx_11_0_arm64.whl", hash = "sha256:dfaf492bb453675999d70626a8fdb6d4ecaecafbf4a0548e68105757a7a4025a"},
-    {file = "getdaft-0.2.23-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0d6f4dbb7f3b5d62f8df1006bf55cc657148c2a3962766e62fbd3c2df337fa32"},
-    {file = "getdaft-0.2.23-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9bfa567569a8b53e9b0a7ab3eb0044afe8d5499d995bfeb40bd867661bfa2aa7"},
-    {file = "getdaft-0.2.23-cp37-abi3-win_amd64.whl", hash = "sha256:533b78abefa738cac97a6823ef2b8f2df3300bf2d4bda4e8336371fc2780bbb9"},
-    {file = "getdaft-0.2.23.tar.gz", hash = "sha256:c2d66e6a4ce75aeb4cedbe2c04c18fa8f3f7dcfe2799f66211f36c7be2f835a5"},
+    {file = "getdaft-0.2.27-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:13f75cd4fa5037760757743fbd04fdcdf5c8294dd7975cc369081f9a2c53e49a"},
+    {file = "getdaft-0.2.27-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:2d31c0ecb211e8801c158702c53659be13db82c1656aac67cdaa4f8dad6e29e9"},
+    {file = "getdaft-0.2.27-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f71bd99964105dc8464fe568c53464f6a44db116bc743cdbc7a5cc83fb126318"},
+    {file = "getdaft-0.2.27-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:de90e30ebd727423afe32cd2333a7bfa4fceff6a5cc69e3af3839af37f0afdd7"},
+    {file = "getdaft-0.2.27-cp38-abi3-win_amd64.whl", hash = "sha256:9eba98926f7fac3e15d63a82a2b510afae454e6e6e509e2026aeebe3a3f74b3d"},
+    {file = "getdaft-0.2.27.tar.gz", hash = "sha256:fcb62ddc260c7a8ac8cfaada87d5dd38b46886b02d9b8fe57a27d2aa176325d3"},
 ]
 
 [package.dependencies]
