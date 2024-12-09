@@ -61,6 +61,10 @@ for catalog_name, catalog in catalogs.items():
 
     catalog.create_table(identifier="default.test_uuid_and_fixed_unpartitioned", schema=schema)
 
+    # Partitioning is not really needed, but there is a bug:
+    # https://github.com/apache/iceberg/pull/7685
+    spark.sql(f"ALTER TABLE {catalog_name}.default.test_positional_mor_deletes ADD PARTITION FIELD years(dt) AS dt_years")
+
     spark.sql(
         f"""
         INSERT INTO {catalog_name}.default.test_uuid_and_fixed_unpartitioned VALUES
@@ -163,6 +167,10 @@ for catalog_name, catalog in catalogs.items():
       );
     """
     )
+
+    # Partitioning is not really needed, but there is a bug:
+    # https://github.com/apache/iceberg/pull/7685
+    spark.sql(f"ALTER TABLE {catalog_name}.default.test_positional_mor_double_deletes ADD PARTITION FIELD years(dt) AS dt_years")
 
     spark.sql(
         f"""
