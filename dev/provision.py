@@ -22,7 +22,17 @@ from pyiceberg.catalog import load_catalog
 from pyiceberg.schema import Schema
 from pyiceberg.types import FixedType, NestedField, UUIDType
 
-spark = SparkSession.builder.getOrCreate()
+# The configuration is important, otherwise we get many small
+# parquet files with a single row. When a positional delete
+# hits the Parquet file with one row, the parquet file gets
+# dropped instead of having a merge-on-read delete file.
+spark = (
+    SparkSession
+        .builder
+        .config("spark.sql.shuffle.partitions", "1")
+        .config("spark.default.parallelism", "1")
+        .getOrCreate()
+)
 
 catalogs = {
     'rest': load_catalog(
