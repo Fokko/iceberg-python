@@ -99,7 +99,7 @@ pytest-mock = "3.14.1"
 pyspark = "3.5.6"
 cython = "3.1.2"
 deptry = ">=0.14,<0.24"
-datafusion = ">=44,<48"
+datafusion = ">=44,<49"
 docutils = "!=0.21.post1"   # https://github.com/python-poetry/poetry/issues/9248#issuecomment-2026240520
 mypy-boto3-glue = ">=1.28.18"
 mypy-boto3-dynamodb = ">=1.28.18"
