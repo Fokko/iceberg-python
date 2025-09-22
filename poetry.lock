@@ -3145,14 +3145,14 @@ type = ["mypy (==1.14.1)"]
 
 [[package]]
 name = "moto"
-version = "5.1.11"
+version = "5.1.13"
 description = "A library that allows you to easily mock out tests based on AWS infrastructure"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "moto-5.1.11-py3-none-any.whl", hash = "sha256:d09429ed5f67f8568637700cd525997d6abe7f91439a6f900b4f98a9fe4ecac9"},
-    {file = "moto-5.1.11.tar.gz", hash = "sha256:1330b6d9b91088e971469dfb67f297595541914b364e0b49047bb82622975ec7"},
+    {file = "moto-5.1.13-py3-none-any.whl", hash = "sha256:2659d2ffbded101fb65d02f4271754550759c22440fe890fb72f37b339e9845f"},
+    {file = "moto-5.1.13.tar.gz", hash = "sha256:f707b4b8943d833cafafec2f16de10d038f6afdfcbf9987457e22ef5a6d8c697"},
 ]
 
 [package.dependencies]
@@ -4188,7 +4188,7 @@ description = "Beautiful, Pythonic protocol buffers"
 optional = true
 python-versions = ">=3.7"
 groups = ["main"]
-markers = "(python_version < \"3.12\" or python_version >= \"3.13\" or extra == \"bigquery\" or extra == \"gcsfs\") and (extra == \"gcsfs\" or extra == \"bigquery\")"
+markers = "python_version >= \"3.13\" and (extra == \"gcsfs\" or extra == \"bigquery\") or extra == \"bigquery\" or extra == \"gcsfs\""
 files = [
     {file = "proto_plus-1.26.1-py3-none-any.whl", hash = "sha256:13285478c2dcf2abb829db158e1047e2f1e8d63a077d94263c2b88b043c75a66"},
     {file = "proto_plus-1.26.1.tar.gz", hash = "sha256:21a515a4c4c0088a773899e23c7bbade3d18f9c66c73edd4c7ee3816bc96a012"},
